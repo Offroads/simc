@@ -34,8 +34,7 @@ CONFIG(qt) {
 
 Release: DEFINES += QT_NO_DEBUG_OUTPUT
 
-win32-mingw
-{
+win32-g++ {
   ! macx {
     # QT 5.4 for MinGW does not yet contain the new Web Engine
     contains ( QT_MAJOR_VERSION , 5 ) {
