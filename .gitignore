@@ -69,3 +69,4 @@ build.conf
 /simc.vcxproj.user
 .gdbinit
 CMakeCache.txt
+aqtinstall.log
