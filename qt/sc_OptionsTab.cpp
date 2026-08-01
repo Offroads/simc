@@ -343,7 +343,7 @@ void SC_OptionsTab::createGlobalsTab()
   globalsLayout_right -> addRow( tr( "Statistics Level" ),   choice.statistics_level = createChoice( 4, "0", "1", "2", "3" ) );
   globalsLayout_right -> addRow( tr( "Deterministic RNG" ), choice.deterministic_rng = createChoice( 2, "Yes", "No" ) );
   globalsLayout_right -> addRow( tr( "Auto-Save Reports" ), choice.auto_save = createChoice( 3, "No", "Use current date/time", "Ask for filename on each simulation" ) );
-  globalsLayout_right -> addRow( tr( "Chart library" ),     choice.chart_render = createChoice( 2, "Google Image Charts", "Highcharts" ) );
+  globalsLayout_right -> addRow( tr( "Chart library" ),     choice.chart_render = createChoice( 1, "Highcharts" ) );
 
   createItemDataSourceSelector( globalsLayout_right );
 
@@ -678,7 +678,7 @@ void SC_OptionsTab::decodeOptions()
   load_setting( settings, "statistics_level", choice.statistics_level, "1" );
   load_setting( settings, "deterministic_rng", choice.deterministic_rng, "No" );
   load_setting( settings, "challenge_mode", choice.challenge_mode );
-  load_setting( settings, "enable_highcharts", choice.chart_render, "Google Image Charts" );
+  load_setting( settings, "enable_highcharts", choice.chart_render, "Highcharts" );
 
   load_setting( settings, "center_scale_delta", choice.center_scale_delta, "No" );
   load_setting( settings, "scale_over", choice.scale_over );
@@ -979,10 +979,8 @@ QString SC_OptionsTab::get_globalSettings()
   if ( choice.challenge_mode -> currentIndex() > 0 )
     options += "challenge_mode=1\n";
 
-  if ( choice.chart_render -> currentIndex() > 0 )
-  {
-    options += "enable_highcharts=1\n";
-  }
+  // Google Image Charts shut down in 2019; Highcharts is the only renderer left.
+  options += "enable_highcharts=1\n";
 
   if ( choice.show_etmi -> currentIndex() != 0 )
     options += "show_etmi=1\n";

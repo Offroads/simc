@@ -932,7 +932,7 @@ protected:
     }
 
     QString url_to_show = url.toString();
-    if ( url.isLocalFile() || url_to_show.contains( "battle.net" ) || url_to_show.contains( "battlenet" ) || url_to_show.contains( "github.com" ) )
+    if ( url.isLocalFile() || url_to_show.contains( "battle.net" ) || url_to_show.contains( "battlenet" ) || url_to_show.contains( "blizzard.com" ) || url_to_show.contains( "worldofwarcraft.com" ) || url_to_show.contains( "github.com" ) )
       return true;
     else
       QDesktopServices::openUrl( url_to_show );
@@ -1153,7 +1153,7 @@ private slots:
     // AMR and Lootrank links are nice to load externally too so we don't lose sim results
     // In general, we err towards opening things externally because we are not Mozilla
     // github.com is needed for our help tab; battle.net (us/eu) and battlenet (china) cover armory
-    if ( url.isLocalFile() || clickedurl.contains( "battle.net" ) || clickedurl.contains( "battlenet" ) || clickedurl.contains( "github.com" ) )
+    if ( url.isLocalFile() || clickedurl.contains( "battle.net" ) || clickedurl.contains( "battlenet" ) || clickedurl.contains( "blizzard.com" ) || clickedurl.contains( "worldofwarcraft.com" ) || clickedurl.contains( "github.com" ) )
       load( url );
     else
       QDesktopServices::openUrl( url );

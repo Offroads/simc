@@ -1319,7 +1319,7 @@ sim_t::sim_t( sim_t* p, int index ) :
   pause_mutex( nullptr ),
   paused( false ),
   // Highcharts stuff
-  enable_highcharts( false ),
+  enable_highcharts( true ),
   output_relative_difference( false ),
   boxplot_percentile( .25 ),
   display_hotfixes( false ),

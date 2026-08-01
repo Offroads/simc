@@ -2,6 +2,10 @@
 #include <QtWidgets/QApplication>
 #include <locale>
 
+#ifdef Q_OS_WIN
+#include <windows.h>
+#endif
+
 #include "simulationcraft.hpp"
 #include "simulationcraftqt.hpp"
 #include "sc_SimulateTab.hpp"
@@ -62,6 +66,31 @@ int main( int argc, char *argv[] )
   unique_gear::register_special_effects();
 
   hotfix::apply();
+
+  // Scale the UI on high-DPI (e.g. 4K) displays. Must be set before the
+  // QApplication is constructed.
+#ifdef Q_OS_WIN
+  // Qt renders this 2015-era UI at 1x regardless of the OS scale factor,
+  // which is unusably small on a 4K screen. EnumDisplaySettings reports the
+  // physical display mode (not DPI-virtualized), so key the scale off that.
+  // Users can override with the QT_SCALE_FACTOR environment variable.
+  if ( qEnvironmentVariableIsEmpty( "QT_SCALE_FACTOR" ) )
+  {
+    DEVMODE dm = {};
+    dm.dmSize = sizeof( dm );
+    if ( EnumDisplaySettings( nullptr, ENUM_CURRENT_SETTINGS, &dm ) &&
+         dm.dmPelsHeight >= 2000 )
+    {
+      qputenv( "QT_SCALE_FACTOR", "2" );
+    }
+  }
+#endif
+  QCoreApplication::setAttribute( Qt::AA_EnableHighDpiScaling );
+  QCoreApplication::setAttribute( Qt::AA_UseHighDpiPixmaps );
+#if QT_VERSION >= QT_VERSION_CHECK( 5, 14, 0 )
+  QGuiApplication::setHighDpiScaleFactorRoundingPolicy(
+      Qt::HighDpiScaleFactorRoundingPolicy::PassThrough );
+#endif
 
   QApplication a( argc, argv );
 

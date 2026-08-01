@@ -79,7 +79,7 @@ QMAKE_CXXFLAGS += $$OPTS
 }
 
 win32 {
-  LIBS += -lwininet -lshell32
+  LIBS += -lwininet -lshell32 -luser32
   RC_FILE += simcqt.rc
 }
 
